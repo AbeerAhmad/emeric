@@ -1,22 +1,32 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-export default function Header(props) {
-  const [count, setcount] = useState(1)
-  const [user, setuser] = useState({ name: 'abeer' })
+function Header(props) {
+  const [user, setuser] = useState({ name: "abeer" });
 
   return (
-    <div style={{ height: '60px', border: 'solid black 2px' }}>
-      Header {count}
-      <button onClick={() => {
-        props.setcount(props.count + 1)
-      }}>increament</button>
+    <div style={{ height: "60px", border: "solid black 2px" }}>
+      Header
+      <button
+        onClick={() => {
+          props.dispatch({ type: "increament", payload: props.count + 1 });
+        }}
+      >
+        increament
+      </button>
       {user.name}
-      <Link to='/' >Home</Link>
-      <Link to='/contactus/Evllin' >Contactus</Link>
-      <button onClick={() => props.setuser({ name: 'ali' })}>
+      <Link to="/">Home</Link>
+      <Link to="/contactus/136">Contactus</Link>
+      <button onClick={() => props.setuser({ name: "ali" })}>
         react state changes
       </button>
     </div>
-  )
+  );
 }
+const readvalues = (store) => {
+  return {
+    count: store.counter.count,
+  };
+};
+export default connect(readvalues)(Header);
